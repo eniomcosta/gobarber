@@ -73,7 +73,7 @@ class UserController {
       name,
       email,
       provider,
-      avatar_id
+      avatar_id,
     });
   }
 }

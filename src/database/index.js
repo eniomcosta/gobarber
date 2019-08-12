@@ -17,7 +17,11 @@ class Database {
 
     models
       .map(model => model.init(this.connection))
-      .map(model => typeof model.associate == 'function' && model.associate(this.connection.models));
+      .map(
+        model =>
+          typeof model.associate === 'function' &&
+          model.associate(this.connection.models)
+      );
   }
 }
 
