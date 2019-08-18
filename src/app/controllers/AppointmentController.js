@@ -47,9 +47,24 @@ class AppointmentController {
     const { provider_id, date } = req.body;
 
     /**
+     * Cannot schedule an appointment if user is a provider
+     */
+    const isUserProvider = await User.findOne({
+      where: {
+        id: req.userId,
+        provider: true,
+      },
+    });
+
+    if (isUserProvider) {
+      return res.status(401).json({
+        error: 'Providers cannot schedule appointments',
+      });
+    }
+
+    /**
      * Check if provider_id is a valid provider
      */
-
     const isProvider = await User.findOne({
       where: { id: provider_id, provider: true },
     });
